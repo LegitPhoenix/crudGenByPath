@@ -12,6 +12,7 @@ import http from 'http';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import csrf from 'csurf';
 dotenv.config();
 
 const app = express();
@@ -23,10 +24,18 @@ app.use(cookieParser());
 
 app.use(express.json({ limit: '100mb' }));
 
+const csrfProtection = csrf({ cookie: true });
+
 app.use('/', express.static(path.join(path.resolve(), 'public')))
 
 app.get('/', (req, res) => {
     res.json("kkhhhhhhh")
+});
+
+app.use(csrfProtection);
+
+app.get('/csrf-token', (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
 });
 
 app.use('/bin', routerbinByPath);
