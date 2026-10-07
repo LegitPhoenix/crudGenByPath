@@ -9,7 +9,7 @@ let StartFunc = async () => {
 let LocalFetchFiles = async () => {
     let jVarLocalTableName = LocalFuncForQueryParams({ inKey: "fileName" });
     let jVarLocalHeadingId = document.getElementById("HeadingId");
-    jVarLocalHeadingId.innerHTML = jVarLocalTableName;
+    jVarLocalHeadingId.textContent = jVarLocalTableName;
 
     let jVarLocalFetchUrl = `/bin/${jVarLocalTableName.split(".")[0]}`;
     let response = await fetch(jVarLocalFetchUrl);
